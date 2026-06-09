@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Honeymoon · 우리의 신혼여행</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+  :root{
+    --cream:#FFF7F3; --cream2:#FBE9EC; --card:#FFFFFF;
+    --blush:#F7B9C6; --rose:#E6849B; --rosedeep:#D46A86;
+    --gold:#DBA85E; --sage:#BCD6BD;
+    --ink:#5B4450; --muted:#9C8592; --faint:#C9B4C0; --line:#F4DCE2;
+    --display:'Gaegu','Noto Sans KR',cursive;
+    --body:'Noto Sans KR',ui-sans-serif,system-ui,-apple-system,sans-serif;
+    --shadow:0 12px 34px rgba(230,132,155,0.16);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;color:var(--ink);font-family:var(--body);line-height:1.6;
+    background:linear-gradient(165deg,var(--cream) 0%,var(--cream2) 100%);
+    background-attachment:fixed;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:920px;margin:0 auto;padding:34px 24px 64px;}
+
+  /* language toggle */
+  #langBtn{position:fixed;top:18px;right:18px;z-index:20;font-family:var(--display);
+    font-size:17px;font-weight:700;color:var(--rosedeep);background:#fff;cursor:pointer;
+    border:2px solid var(--blush);border-radius:30px;padding:7px 18px;box-shadow:var(--shadow);
+    transition:transform .15s ease;}
+  #langBtn:hover{transform:scale(1.05);}
+  #langBtn:focus-visible{outline:3px solid var(--rose);outline-offset:2px;}
+
+  /* hero */
+  .hero{text-align:center;padding:18px 0 8px;}
+  .rings{font-size:30px;letter-spacing:-6px;color:var(--gold);}
+  .eyebrow{font-family:var(--display);font-size:16px;letter-spacing:1px;color:var(--gold);margin-top:6px;}
+  h1{font-family:var(--display);font-weight:700;font-size:52px;line-height:1.05;margin:6px 0 8px;color:var(--ink);}
+  h1 .amp{color:var(--rose);}
+  .sub{color:var(--muted);font-size:15px;max-width:520px;margin:0 auto;}
+
+  /* route ribbon */
+  .route{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;
+    margin:26px auto 6px;max-width:760px;}
+  .chip{background:#fff;border:2px solid var(--line);border-radius:20px;padding:5px 13px;
+    font-family:var(--display);font-size:16px;color:var(--ink);box-shadow:0 4px 12px rgba(230,132,155,0.08);}
+  .chip.end{border-color:var(--blush);color:var(--rosedeep);background:#FFF1F4;}
+  .heart{color:var(--blush);font-size:13px;}
+  .mode{color:var(--faint);font-size:11px;font-family:var(--body);}
+
+  /* top cards */
+  .topgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:28px;}
+  .card{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);}
+  .card.total{background:linear-gradient(160deg,#fff 0%,#FFF1F4 100%);border-color:var(--blush);}
+  .lbl{font-family:var(--display);font-size:16px;color:var(--rosedeep);}
+  .big{font-family:var(--display);font-size:40px;font-weight:700;margin-top:2px;color:var(--ink);line-height:1;}
+  .big .range{color:var(--muted);font-size:16px;font-weight:400;font-family:var(--body);}
+  .note-sm{color:var(--muted);font-size:13px;margin-top:8px;}
+  .glance{color:var(--ink);font-size:14px;margin-top:10px;line-height:1.9;}
+  .glance .hb{color:var(--blush);}
+
+  /* sections */
+  h2{font-family:var(--display);font-size:34px;font-weight:700;margin:46px 0 2px;color:var(--ink);text-align:center;}
+  h2 .deco{color:var(--blush);}
+  .h2note{color:var(--muted);font-size:13px;margin:0 auto 20px;max-width:600px;text-align:center;}
+
+  /* day-by-day */
+  .day{display:grid;grid-template-columns:54px 1fr auto;gap:16px;align-items:start;
+    background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:18px 20px;
+    margin-bottom:12px;box-shadow:0 6px 18px rgba(230,132,155,0.08);}
+  .dnum{width:42px;height:42px;border-radius:50%;background:#FFF1F4;border:2px solid var(--blush);
+    display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;
+    font-size:20px;color:var(--rosedeep);}
+  .where{font-family:var(--display);font-size:21px;color:var(--ink);}
+  .where small{display:block;font-family:var(--body);font-size:11px;color:var(--faint);letter-spacing:.5px;margin-top:1px;}
+  .plan{color:var(--ink);font-size:14px;margin-top:4px;}
+  .plan strong{color:var(--rosedeep);}
+  .plan .sleep{display:block;color:var(--muted);font-size:12px;margin-top:6px;}
+  .plan .sleep::before{content:"☾ ";color:var(--gold);}
+  .plan .tip{display:block;color:var(--rose);font-size:12.5px;margin-top:6px;font-family:var(--display);}
+  .plan .tip::before{content:"♡ ";}
+  .dcost{text-align:right;white-space:nowrap;}
+  .dcost .amt{font-family:var(--display);font-size:22px;font-weight:700;color:var(--ink);
+    background:#FFF1F4;border-radius:16px;padding:4px 12px;display:inline-block;}
+  .dcost small{display:block;color:var(--faint);font-size:11px;margin-top:5px;}
+
+  /* cost summary */
+  .sumtable{background:var(--card);border:1.5px solid var(--line);border-radius:22px;
+    padding:10px 22px;box-shadow:var(--shadow);max-width:680px;margin:0 auto;}
+  .srow{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px dashed var(--line);
+    font-size:14px;color:var(--ink);}
+  .srow .amt{font-family:var(--display);font-size:18px;color:var(--ink);white-space:nowrap;}
+  .srow.total{border-bottom:none;border-top:2px solid var(--blush);margin-top:2px;padding-top:16px;}
+  .srow.total span:first-child{font-family:var(--display);font-size:18px;}
+  .srow.total .amt{font-size:26px;color:var(--rosedeep);}
+
+  /* notes */
+  .notes{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:760px;margin:0 auto;}
+  .note{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:18px 20px;box-shadow:0 6px 18px rgba(230,132,155,0.08);}
+  .note h3{font-family:var(--display);font-size:20px;margin:0 0 6px;color:var(--ink);}
+  .note p{margin:0;color:var(--muted);font-size:13px;}
+  .pill{display:inline-block;background:#FFF1F4;color:var(--rosedeep);border:1.5px solid var(--blush);
+    border-radius:20px;padding:2px 11px;font-size:12px;font-family:var(--display);margin-left:4px;vertical-align:middle;}
+
+  .foot{margin-top:34px;color:var(--faint);font-size:12px;text-align:center;max-width:640px;margin-left:auto;margin-right:auto;}
+
+  @media (max-width:680px){
+    .topgrid,.notes{grid-template-columns:1fr;}
+    h1{font-size:40px;} h2{font-size:28px;}
+    .day{grid-template-columns:42px 1fr;}
+    .dcost{grid-column:1 / -1;text-align:left;margin-top:4px;}
+    .dcost .amt{font-size:18px;}
+  }
+  @media print{
+    body{background:#fff;} #langBtn{display:none;}
+    .card,.day,.note,.sumtable{box-shadow:none;}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+<button id="langBtn" aria-label="Switch language">한국어</button>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="rings">◌◌</div>
+    <div class="eyebrow" data-i18n="ey">Honeymoon Itinerary · 11 Days · For Two</div>
+    <h1 data-i18n="ti">Orlando <span class="amp">to</span> the Swiss Alps</h1>
+    <p class="sub" data-i18n="su">Lisbon &amp; Barcelona on the way · best booked early-to-mid December 2026</p>
+  </div>
+
+  <div class="route">
+    <span class="chip end">MCO</span><span class="mode" data-i18n="mOpen">✈ open-jaw</span>
+    <span class="heart">♥</span><span class="chip">LIS</span><span class="mode">✈</span>
+    <span class="heart">♥</span><span class="chip">BCN</span><span class="mode">✈</span>
+    <span class="heart">♥</span><span class="chip">GVA</span><span class="mode" data-i18n="mRail">rail</span>
+    <span class="heart">♥</span><span class="chip" data-i18n="rc1">Montreux</span>
+    <span class="heart">♥</span><span class="chip" data-i18n="rc2">Interlaken</span>
+    <span class="heart">♥</span><span class="chip" data-i18n="rc3">Lucerne</span>
+    <span class="heart">♥</span><span class="chip">ZRH</span><span class="mode">✈</span>
+    <span class="heart">♥</span><span class="chip end">MCO</span>
+  </div>
+
+  <div class="topgrid">
+    <div class="card total">
+      <div class="lbl" data-i18n="tLbl">Estimated total · per couple</div>
+      <div class="big">$7,200 <span class="range">($6,300–9,000)</span></div>
+      <div class="note-sm" data-i18n="tNote">Comfortable honeymoon tier. Flexes with room class &amp; dining.</div>
+    </div>
+    <div class="card">
+      <div class="lbl" data-i18n="gLbl">At a glance</div>
+      <div class="glance" data-i18n="gBody"><span class="hb">♥</span> 9 nights on the ground<br><span class="hb">♥</span> 2 Lisbon · 2 Barcelona · 5 Switzerland<br><span class="hb">♥</span> 3 short flights + scenic Swiss rail</div>
+    </div>
+  </div>
+
+  <h2><span class="deco">♥</span> <span data-i18n="schH">Day-by-day schedule</span> <span class="deco">♥</span></h2>
+  <p class="h2note" data-i18n="schN">Costs on the right are the day's living spend for two — that night's lodging, meals, and activities. Flights and rail passes are listed separately below.</p>
+
+  <div id="days">
+    <div class="day">
+      <div class="dnum">1</div>
+      <div><div class="where" data-i18n="d1w">In transit<small>MCO ✈</small></div>
+        <div class="plan" data-i18n="d1p">Depart Orlando in the evening (open-jaw ticket). Overnight transatlantic flight toward Lisbon.<span class="sleep">Sleep: on the plane</span></div></div>
+      <div class="dcost"><span class="amt">$60</span><small data-i18n="d1c">airport meals</small></div>
+    </div>
+    <div class="day">
+      <div class="dnum">2</div>
+      <div><div class="where" data-i18n="d2w">Lisbon<small>🇵🇹 LIS</small></div>
+        <div class="plan" data-i18n="d2p">Arrive midday. Settle in, wander Alfama's lanes, sunset from a miradouro, first Portuguese dinner.<span class="sleep">Sleep: Lisbon (2 nights)</span><span class="tip">A Fado dinner makes a memorable first honeymoon night.</span></div></div>
+      <div class="dcost"><span class="amt">$290</span><small data-i18n="d2c">hotel · food · fado</small></div>
+    </div>
+    <div class="day">
+      <div class="dnum">3</div>
+      <div><div class="where" data-i18n="d3w">Lisbon<small>🇵🇹</small></div>
+        <div class="plan" data-i18n="d3p">Belém tower &amp; pastéis de nata, historic trams — or a half-day escape to the palaces of Sintra.<span class="sleep">Sleep: Lisbon</span></div></div>
+      <div class="dcost"><span class="amt">$280</span><small data-i18n="d3c">hotel · food · Sintra</small></div>
+    </div>
+    <div class="day">
+      <div class="dnum">4</div>
+      <div><div class="where" data-i18n="d4w">Barcelona<small>🇪🇸 LIS→BCN</small></div>
+        <div class="plan" data-i18n="d4p">Morning flight (~2h). Afternoon in the Gothic Quarter; tapas crawl in the evening.<span class="sleep">Sleep: Barcelona (2 nights)</span></div></div>
+      <div class="dcost"><span class="amt">$260</span><small data-i18n="d4c">hotel · food</small></div>
+    </div>
+    <div class="day">
+      <div class="dnum">5</div>
+      <div><div class="where" data-i18n="d5w">Barcelona<small>🇪🇸</small></div>
+        <div class="plan" data-i18n="d5p">Sagrada Família &amp; Park Güell, then the beach or El Born. A standout dinner — Barcelona is still affordable.<span class="sleep">Sleep: Barcelona</span></div></div>
+      <div class="dcost"><span class="amt">$320</span><small data-i18n="d5c">hotel · food · sights</small></div>
+    </div>
+    <div class="day">
+      <div class="dnum">6</div>
+      <div><div class="where" data-i18n="d6w">Lake Geneva<small>🇨🇭 BCN→GVA</small></div>
+        <div class="plan" data-i18n="d6p">Morning flight to Geneva (~1.5h), train along the lake to Montreux. Lakeside evening; Christmas market if early December.<span class="sleep">Sleep: Montreux, lake-view room</span><span class="tip">Worth a splurge night — the lake at dusk is the honeymoon postcard.</span></div></div>
+      <div class="dcost"><span class="amt">$380</span><small data-i18n="d6c">lake-view hotel · food</small></div>
+    </div>
+    <div class="day">
+      <div class="dnum">7</div>
+      <div><div class="where" data-i18n="d7w">Montreux → Interlaken<small>🇨🇭</small></div>
+        <div class="plan" data-i18n="d7p">Château de Chillon and the Lavaux vineyard terraces, then a scenic train into the Bernese Oberland.<span class="sleep">Sleep: Interlaken (3 nights — one base)</span></div></div>
+      <div class="dcost"><span class="amt">$360</span><small data-i18n="d7c">hotel · Chillon · food</small></div>
+    </div>
+    <div class="day">
+      <div class="dnum">8</div>
+      <div><div class="where" data-i18n="d8w">Jungfrau region<small>🇨🇭</small></div>
+        <div class="plan" data-i18n="d8p">The big one: cog railway to <strong>Jungfraujoch — Top of Europe</strong>, plus Lauterbrunnen &amp; Grindelwald village time.<span class="sleep">Sleep: Interlaken</span></div></div>
+      <div class="dcost"><span class="amt">$760</span><small data-i18n="d8c">hotel · Jungfraujoch ×2 · food</small></div>
+    </div>
+    <div class="day">
+      <div class="dnum">9</div>
+      <div><div class="where" data-i18n="d9w">Flex day<small>🇨🇭 buffer</small></div>
+        <div class="plan" data-i18n="d9p">Held open on purpose: a second excursion (Schilthorn / First) on a clear day, or a slow morning and spa. Your weather &amp; delay cushion.<span class="sleep">Sleep: Interlaken</span><span class="tip">Don't pre-book the excursion — decide by the forecast.</span></div></div>
+      <div class="dcost"><span class="amt">$450</span><small data-i18n="d9c">hotel · activity · food</small></div>
+    </div>
+    <div class="day">
+      <div class="dnum">10</div>
+      <div><div class="where" data-i18n="d10w">Lucerne<small>🇨🇭</small></div>
+        <div class="plan" data-i18n="d10p">Scenic train to Lucerne (~2h). Chapel Bridge, the old town, a lake-front dinner to close the trip.<span class="sleep">Sleep: Lucerne</span></div></div>
+      <div class="dcost"><span class="amt">$410</span><small data-i18n="d10c">hotel · food · lake</small></div>
+    </div>
+    <div class="day">
+      <div class="dnum">11</div>
+      <div><div class="where" data-i18n="d11w">Home<small>ZRH ✈ MCO</small></div>
+        <div class="plan" data-i18n="d11p">Morning in Lucerne, ~1h train to Zurich airport, fly home (arrives same day).<span class="sleep">Sleep: home, sweet home</span></div></div>
+      <div class="dcost"><span class="amt">$60</span><small data-i18n="d11c">travel meals</small></div>
+    </div>
+  </div>
+
+  <h2><span class="deco">✈</span> <span data-i18n="fpH">Flights by period</span> <span class="deco">✈</span></h2>
+  <p class="h2note" data-i18n="fpN">Buffered estimates for two — transatlantic open-jaw + European hops, checked bags included. Shown as range · plan-with figure (bold).</p>
+  <div class="sumtable">
+    <div class="srow"><span data-i18n="fp1">November · cheapest</span><span class="amt">$1,900–2,280 · <b style="color:var(--rosedeep)">$2,250</b></span></div>
+    <div class="srow" style="background:#FFF1F4;border-radius:14px;margin:2px -12px;padding-left:12px;padding-right:12px;"><span data-i18n="fp2">Early–mid December ★ recommended</span><span class="amt">$2,300–2,740 · <b style="color:var(--rosedeep)">$2,700</b></span></div>
+    <div class="srow"><span data-i18n="fp3">Late December · peak, avoid</span><span class="amt">$3,000–3,900 · <b style="color:var(--rosedeep)">$3,800</b></span></div>
+    <div class="srow"><span data-i18n="fp4">Mid-January</span><span class="amt">$1,800–2,180 · <b style="color:var(--rosedeep)">$2,150</b></span></div>
+  </div>
+  <p class="h2note" data-i18n="fpStar" style="margin-top:14px;">★ This itinerary's costs use the early–mid December basis ($2,700 flights).</p>
+
+  <h2><span class="deco">♥</span> <span data-i18n="coH">Cost summary</span> <span class="deco">♥</span></h2>
+  <p class="h2note" data-i18n="coN">Per couple, comfortable tier. Estimates from current and seasonal fare data — confirm live before booking.</p>
+
+  <div class="sumtable">
+    <div class="srow"><span data-i18n="f1">Transatlantic open-jaw flights (MCO→LIS / ZRH→MCO) · 2 people</span><span class="amt">$2,300</span></div>
+    <div class="srow"><span data-i18n="f2">European hops (LIS→BCN, BCN→GVA) · 2 people, with checked bags</span><span class="amt">$400</span></div>
+    <div class="srow"><span data-i18n="f3">Swiss Travel Pass — 6-day, 2nd class · 2 people</span><span class="amt">$880</span></div>
+    <div class="srow"><span data-i18n="f4">Lodging, food &amp; activities (Days 1–11)</span><span class="amt">$3,630</span></div>
+    <div class="srow total"><span data-i18n="fT">Estimated total · per couple</span><span class="amt">$7,210</span></div>
+  </div>
+
+  <h2><span class="deco">♥</span> <span data-i18n="noH">Notes that matter</span> <span class="deco">♥</span></h2>
+  <div class="notes">
+    <div class="note"><h3><span data-i18n="n1h">When to go</span><span class="pill" data-i18n="n1pill">early–mid Dec</span></h3><p data-i18n="n1p">Christmas markets land on your Montreux, Lucerne &amp; Zurich stops, and the mountains have reopened after November maintenance. Avoid Dec 18–Jan 2 — holiday peak nearly doubles flight prices. Mid-January is the cheapest alternative.</p></div>
+    <div class="note"><h3 data-i18n="n2h">Rail: pass vs. half-fare</h3><p data-i18n="n2p">In 2026 the 6-day Swiss Travel Pass (CHF 399 pp) is no longer an automatic win. Run your exact legs through the official SBB calculator against two Half Fare Cards (CHF 150 pp) before buying.</p></div>
+    <div class="note"><h3 data-i18n="n3h">Honeymoon touches</h3><p data-i18n="n3p">Tell each hotel it's your honeymoon when booking — free upgrades and small extras are common. Splurge the lake-view nights in Montreux and a Jungfrau-view room in Interlaken; keep Lisbon &amp; Barcelona for memorable dinners since they're cheap.</p></div>
+    <div class="note"><h3 data-i18n="n4h">Booking mechanics</h3><p data-i18n="n4p">Book the transatlantic as one multi-city ticket (cheaper than two one-ways). Book the European hops separately as one-ways, carry-on only. The Day 9 flex buffer protects a clear-sky Jungfraujoch run.</p></div>
+  </div>
+
+  <div class="foot" data-i18n="ft">All figures are planning estimates for two travelers, comfortable tier, modeled from current and seasonal fare data — not live quotes. Lodging assumes a shared double room. Confirm fares, pass prices, and excursion costs before booking.</div>
+
+</div>
+
+<script>
+const I18N = {
+  en: {
+    ey:"Honeymoon Itinerary · 11 Days · For Two",
+    ti:'Orlando <span class="amp">to</span> the Swiss Alps',
+    su:"Lisbon &amp; Barcelona on the way · best booked early-to-mid December 2026",
+    mOpen:"✈ open-jaw", mRail:"rail", rc1:"Montreux", rc2:"Interlaken", rc3:"Lucerne",
+    tLbl:"Estimated total · per couple",
+    tNote:"Comfortable tier, based on early–mid December flights. November or mid-January is about $500–650 less per couple; the late-December peak about $1,100+ more.",
+    gLbl:"At a glance",
+    gBody:'<span class="hb">♥</span> 9 nights on the ground<br><span class="hb">♥</span> 2 Lisbon · 2 Barcelona · 5 Switzerland<br><span class="hb">♥</span> 3 short flights + scenic Swiss rail',
+    schH:"Day-by-day schedule",
+    schN:"Costs on the right are the day's living spend for two — that night's lodging, meals, and activities. Flights and rail passes are listed separately below.",
+    d1w:"In transit<small>MCO ✈</small>",
+    d1p:'Depart Orlando in the evening (open-jaw ticket). Overnight transatlantic flight toward Lisbon.<span class="sleep">Sleep: on the plane</span>',
+    d1c:"airport meals",
+    d2w:"Lisbon<small>🇵🇹 LIS</small>",
+    d2p:'Arrive midday. Settle in, wander Alfama\'s lanes, sunset from a miradouro, first Portuguese dinner.<span class="sleep">Sleep: Lisbon (2 nights)</span><span class="tip">A Fado dinner makes a memorable first honeymoon night.</span>',
+    d2c:"hotel · food · fado",
+    d3w:"Lisbon<small>🇵🇹</small>",
+    d3p:'Belém tower &amp; pastéis de nata, historic trams — or a half-day escape to the palaces of Sintra.<span class="sleep">Sleep: Lisbon</span>',
+    d3c:"hotel · food · Sintra",
+    d4w:"Barcelona<small>🇪🇸 LIS→BCN</small>",
+    d4p:'Morning flight (~2h). Afternoon in the Gothic Quarter; tapas crawl in the evening.<span class="sleep">Sleep: Barcelona (2 nights)</span>',
+    d4c:"hotel · food",
+    d5w:"Barcelona<small>🇪🇸</small>",
+    d5p:'Sagrada Família &amp; Park Güell, then the beach or El Born. A standout dinner — Barcelona is still affordable.<span class="sleep">Sleep: Barcelona</span>',
+    d5c:"hotel · food · sights",
+    d6w:"Lake Geneva<small>🇨🇭 BCN→GVA</small>",
+    d6p:'Morning flight to Geneva (~1.5h), train along the lake to Montreux. Lakeside evening; Christmas market if early December.<span class="sleep">Sleep: Montreux, lake-view room</span><span class="tip">Worth a splurge night — the lake at dusk is the honeymoon postcard.</span>',
+    d6c:"lake-view hotel · food",
+    d7w:"Montreux → Interlaken<small>🇨🇭</small>",
+    d7p:'Château de Chillon and the Lavaux vineyard terraces, then a scenic train into the Bernese Oberland.<span class="sleep">Sleep: Interlaken (3 nights — one base)</span>',
+    d7c:"hotel · Chillon · food",
+    d8w:"Jungfrau region<small>🇨🇭</small>",
+    d8p:'The big one: cog railway to <strong>Jungfraujoch — Top of Europe</strong>, plus Lauterbrunnen &amp; Grindelwald village time.<span class="sleep">Sleep: Interlaken</span>',
+    d8c:"hotel · Jungfraujoch ×2 · food",
+    d9w:"Flex day<small>🇨🇭 buffer</small>",
+    d9p:'Held open on purpose: a second excursion (Schilthorn / First) on a clear day, or a slow morning and spa. Your weather &amp; delay cushion.<span class="sleep">Sleep: Interlaken</span><span class="tip">Don\'t pre-book the excursion — decide by the forecast.</span>',
+    d9c:"hotel · activity · food",
+    d10w:"Lucerne<small>🇨🇭</small>",
+    d10p:'Scenic train to Lucerne (~2h). Chapel Bridge, the old town, a lake-front dinner to close the trip.<span class="sleep">Sleep: Lucerne</span>',
+    d10c:"hotel · food · lake",
+    d11w:"Home<small>ZRH ✈ MCO</small>",
+    d11p:'Morning in Lucerne, ~1h train to Zurich airport, fly home (arrives same day).<span class="sleep">Sleep: home, sweet home</span>',
+    d11c:"travel meals",
+    fpH:"Flights by period",
+    fpN:"Buffered estimates for two — transatlantic open-jaw + European hops, checked bags included. Shown as range · plan-with figure (bold).",
+    fp1:"November · cheapest",
+    fp2:"Early–mid December ★ recommended",
+    fp3:"Late December · peak, avoid",
+    fp4:"Mid-January",
+    fpStar:"★ This itinerary's costs use the early–mid December basis ($2,700 flights).",
+    coH:"Cost summary",
+    coN:"Per couple, comfortable tier. Estimates from current and seasonal fare data — confirm live before booking.",
+    f1:"Transatlantic open-jaw flights (MCO→LIS / ZRH→MCO) · 2 people",
+    f2:"European hops (LIS→BCN, BCN→GVA) · 2 people, carry-on",
+    f3:"Swiss Travel Pass — 6-day, 2nd class · 2 people",
+    f4:"Lodging, food &amp; activities (Days 1–11)",
+    fT:"Estimated total · per couple",
+    noH:"Notes that matter",
+    n1h:"When to go", n1pill:"early–mid Dec",
+    n1p:"Christmas markets land on your Montreux, Lucerne &amp; Zurich stops, and the mountains have reopened after November maintenance. Avoid Dec 18–Jan 2 — holiday peak nearly doubles flight prices. Mid-January is the cheapest alternative.",
+    n2h:"Rail: pass vs. half-fare",
+    n2p:"In 2026 the 6-day Swiss Travel Pass (CHF 399 pp) is no longer an automatic win. Run your exact legs through the official SBB calculator against two Half Fare Cards (CHF 150 pp) before buying.",
+    n3h:"Honeymoon touches",
+    n3p:"Tell each hotel it's your honeymoon when booking — free upgrades and small extras are common. Splurge the lake-view nights in Montreux and a Jungfrau-view room in Interlaken; keep Lisbon &amp; Barcelona for memorable dinners since they're cheap.",
+    n4h:"Booking mechanics",
+    n4p:"Book the transatlantic as one multi-city ticket (cheaper than two one-ways). Book the European hops separately as one-ways, carry-on only. The Day 9 flex buffer protects a clear-sky Jungfraujoch run.",
+    ft:"All figures are planning estimates for two travelers, comfortable tier, modeled from current and seasonal fare data — not live quotes. Lodging assumes a shared double room. Confirm fares, pass prices, and excursion costs before booking.",
+    btn:"한국어"
+  },
+  ko: {
+    ey:"신혼여행 일정 · 11일 · 2인",
+    ti:'올랜도에서<br><span class="amp">스위스 알프스</span>까지',
+    su:"가는 길에 리스본과 바르셀로나 · 2026년 12월 초·중순 예약 추천",
+    mOpen:"✈ 오픈조", mRail:"기차", rc1:"몽트뢰", rc2:"인터라켄", rc3:"루체른",
+    tLbl:"예상 총액 · 2인 기준",
+    tNote:"편안한 등급, 12월 초·중순 항공 기준. 11월이나 1월 중순은 2인 기준 약 $500~650 저렴하고, 12월 말 성수기는 약 $1,100 이상 비싸요.",
+    gLbl:"한눈에 보기",
+    gBody:'<span class="hb">♥</span> 현지 9박<br><span class="hb">♥</span> 리스본 2박 · 바르셀로나 2박 · 스위스 5박<br><span class="hb">♥</span> 단거리 항공 3회 + 스위스 기차 여행',
+    schH:"일자별 일정",
+    schN:"오른쪽 비용은 2인 기준 그날의 생활비예요 — 그날 숙박, 식사, 액티비티 포함. 항공권과 기차 패스는 아래에 따로 정리했어요.",
+    d1w:"이동<small>MCO ✈</small>",
+    d1p:'저녁에 올랜도 출발 (오픈조 항공권). 리스본으로 향하는 대서양 횡단 야간 비행.<span class="sleep">숙박: 기내</span>',
+    d1c:"공항 식사",
+    d2w:"리스본<small>🇵🇹 LIS</small>",
+    d2p:'정오 도착. 짐 풀고 알파마 골목 산책, 전망대에서 일몰, 첫 포르투갈 만찬.<span class="sleep">숙박: 리스본 (2박)</span><span class="tip">파두 공연과 함께하는 저녁은 잊지 못할 신혼 첫날밤이 돼요.</span>',
+    d2c:"호텔 · 식사 · 파두",
+    d3w:"리스본<small>🇵🇹</small>",
+    d3p:'벨렝 탑과 에그타르트, 옛 트램 — 또는 신트라 궁전으로 반나절 나들이.<span class="sleep">숙박: 리스본</span>',
+    d3c:"호텔 · 식사 · 신트라",
+    d4w:"바르셀로나<small>🇪🇸 LIS→BCN</small>",
+    d4p:'오전 비행 (~2시간). 오후엔 고딕 지구 산책, 저녁엔 타파스 투어.<span class="sleep">숙박: 바르셀로나 (2박)</span>',
+    d4c:"호텔 · 식사",
+    d5w:"바르셀로나<small>🇪🇸</small>",
+    d5p:'사그라다 파밀리아와 구엘 공원, 이후 해변 또는 엘 보른. 특별한 만찬 — 바르셀로나는 아직 부담 없는 물가.<span class="sleep">숙박: 바르셀로나</span>',
+    d5c:"호텔 · 식사 · 관광",
+    d6w:"레만 호수<small>🇨🇭 BCN→GVA</small>",
+    d6p:'오전에 제네바로 비행 (~1.5시간), 호숫가 기차로 몽트뢰까지. 호반의 저녁; 12월 초라면 크리스마스 마켓도.<span class="sleep">숙박: 몽트뢰, 호수 전망 객실</span><span class="tip">하룻밤 사치할 가치가 있어요 — 해질녘 호수는 그야말로 신혼여행 엽서예요.</span>',
+    d6c:"호수 전망 호텔 · 식사",
+    d7w:"몽트뢰 → 인터라켄<small>🇨🇭</small>",
+    d7p:'시옹 성과 라보 포도밭 테라스, 이후 베르너 오버란트로 향하는 파노라마 기차.<span class="sleep">숙박: 인터라켄 (3박 — 한 곳 거점)</span>',
+    d7c:"호텔 · 시옹 성 · 식사",
+    d8w:"융프라우 지역<small>🇨🇭</small>",
+    d8p:'하이라이트: 톱니 열차로 <strong>융프라우요흐 — 유럽의 지붕</strong>, 그리고 라우터브루넨과 그린델발트 마을.<span class="sleep">숙박: 인터라켄</span>',
+    d8c:"호텔 · 융프라우요흐 ×2 · 식사",
+    d9w:"여유 날<small>🇨🇭 예비일</small>",
+    d9p:'일부러 비워둔 날: 맑은 날엔 두 번째 산행 (쉴트호른 / 피르스트), 아니면 느긋한 아침과 스파. 날씨와 지연을 위한 완충 장치.<span class="sleep">숙박: 인터라켄</span><span class="tip">산행은 미리 예약하지 마세요 — 일기예보를 보고 결정!</span>',
+    d9c:"호텔 · 액티비티 · 식사",
+    d10w:"루체른<small>🇨🇭</small>",
+    d10p:'파노라마 기차로 루체른 (~2시간). 카펠교, 구시가지, 여행을 마무리하는 호반의 만찬.<span class="sleep">숙박: 루체른</span>',
+    d10c:"호텔 · 식사 · 호수",
+    d11w:"귀국<small>ZRH ✈ MCO</small>",
+    d11p:'루체른에서의 아침, 취리히 공항까지 기차 ~1시간, 귀국 비행 (당일 도착).<span class="sleep">숙박: 즐거운 우리 집</span>',
+    d11c:"이동 중 식사",
+    fpH:"기간별 항공가",
+    fpN:"여유있게 잡은 2인 추정 — 대서양 횡단 오픈조 + 유럽 내 구간, 위탁수하물 포함. 범위 · 여유 예산(굵게) 순으로 표시.",
+    fp1:"11월 · 최저가",
+    fp2:"12월 초·중순 ★ 추천",
+    fp3:"12월 말 · 성수기, 피하기",
+    fp4:"1월 중순",
+    fpStar:"★ 이 일정표 비용은 12월 초·중순 기준이에요 (항공 $2,700).",
+    coH:"비용 요약",
+    coN:"2인 기준, 편안한 등급. 현재 및 계절 요금 데이터 기반 추정치 — 예약 전 실시간 확인 권장.",
+    f1:"대서양 횡단 오픈조 항공권 (MCO→LIS / ZRH→MCO) · 2인",
+    f2:"유럽 내 단거리 항공 (LIS→BCN, BCN→GVA) · 2인, 기내 수하물",
+    f3:"스위스 트래블 패스 — 6일권, 2등석 · 2인",
+    f4:"숙박 · 식사 · 액티비티 (1~11일차)",
+    fT:"예상 총액 · 2인 기준",
+    noH:"꼭 알아둘 점",
+    n1h:"언제 갈까", n1pill:"12월 초·중순",
+    n1p:"크리스마스 마켓이 몽트뢰·루체른·취리히 일정과 딱 맞물리고, 11월 정비를 마친 산악 교통도 다시 운행해요. 12월 18일~1월 2일은 피하세요 — 연말 성수기엔 항공료가 거의 두 배. 가장 저렴한 대안은 1월 중순이에요.",
+    n2h:"기차: 패스 vs. 반값 카드",
+    n2p:"2026년에는 6일권 스위스 트래블 패스(1인 CHF 399)가 더 이상 무조건 이득은 아니에요. 예약 전 공식 SBB 계산기로 실제 구간을 반값 카드 2장(1인 CHF 150)과 비교해 보세요.",
+    n3h:"신혼여행 포인트",
+    n3p:"예약할 때 신혼여행이라고 알려주세요 — 무료 업그레이드나 작은 선물이 흔해요. 몽트뢰의 호수 전망과 인터라켄의 융프라우 전망 객실엔 하룻밤 투자하고, 물가가 저렴한 리스본·바르셀로나는 특별한 만찬에 쓰세요.",
+    n4h:"예약 요령",
+    n4p:"대서양 횡단은 멀티시티(오픈조) 한 장으로 예약하세요 (편도 두 장보다 저렴). 유럽 내 구간은 편도로 따로, 기내 수하물만. 9일차 여유일은 맑은 날 융프라우요흐 등정을 위한 안전장치예요.",
+    ft:"모든 금액은 2인·편안한 등급 기준의 계획용 추정치로, 현재 및 계절 요금 데이터를 바탕으로 했으며 실시간 견적이 아니에요. 숙박은 2인 1실 기준. 예약 전 항공료·패스 가격·액티비티 비용을 확인하세요.",
+    btn:"English"
+  }
+};
+
+let lang = "en";
+function apply(l){
+  lang = l;
+  document.documentElement.lang = (l === "ko") ? "ko" : "en";
+  document.querySelectorAll("[data-i18n]").forEach(function(el){
+    var k = el.getAttribute("data-i18n");
+    if (I18N[l][k] !== undefined) el.innerHTML = I18N[l][k];
+  });
+  document.getElementById("langBtn").textContent = I18N[l].btn;
+}
+document.getElementById("langBtn").addEventListener("click", function(){
+  apply(lang === "en" ? "ko" : "en");
+});
+apply("en");
+</script>
+</body>
+</html>
